@@ -11,7 +11,9 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Roboto', sans-serif;
     background-color: ${({ theme }) => theme.colors.background};
-  
+   scroll-behavior: smooth;
+       margin: 0;
+    overflow-x: hidden;
     background-size: cover; 
     background-position: center;
     color: ${({ theme }) => theme.colors.text};

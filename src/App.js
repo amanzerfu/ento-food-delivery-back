@@ -4,9 +4,10 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { NavBar } from './components/NavBar';
 import theme from './components/theme';
-import { Admin } from './components/pages/Admin';
-import { Landing } from './components/pages/Landing';
+import Admin  from './components/pages/Admin';
+import Landing  from './components/pages/Landing';
 import { Footer } from './components/Footer';
+import FirstPage from './components/pages/FirstPage';
 function App() {
   return (
     <Router>
@@ -14,7 +15,8 @@ function App() {
       <GlobalStyles />
       <NavBar />
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<FirstPage />} />
+        <Route path="/landing" element={<Landing />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer/>

@@ -1,6 +1,6 @@
 // NavBar.js
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBasketShopping, faCoffee, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBasketShopping, faBars } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from './theme';
@@ -25,6 +25,7 @@ export const NavBar = () => {
       <NavItems isopen={isMobileMenuOpen}>
         <MiddleItems>
           <NavItem href="/">Home</NavItem>
+          <NavItem href="/landing">Landing</NavItem>
           <NavItem href="/admin">Admin</NavItem>
           <NavItem href="/contact">Contact</NavItem>
         </MiddleItems>

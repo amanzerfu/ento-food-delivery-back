@@ -6,7 +6,7 @@ import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 import theme from '../theme';
 import { Form } from 'react-router-dom';
 
-export const Landing = () => {
+const Landing = () => {
   return (
     <MainPage>
       <LandingItems>
@@ -16,7 +16,7 @@ export const Landing = () => {
           </Slogan>
           <Poster>
             <p>HUNGRY RIGHT NOW?</p>
-            <p>ORDER YOUR FOOD</p>
+            <p>ORDER YOUR FOOD FROM YOUR FAVORITE RESTORANT</p>
           </Poster>
           <PhonePart>
             <FontAwesomeIcon icon={faPhoneAlt} color={theme.colors.neonMahneta} />
@@ -41,15 +41,16 @@ export const Landing = () => {
 
 const MainPage = styled.div`
   color: ${({ theme }) => theme.colors.yellowColor};
-  padding-top: 80px;
+  padding-top: 130px;
+  padding-left:50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const LandingItems = styled.div`
-  padding: 50px;
+  padding-right: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -68,7 +69,7 @@ const BrandingItems = styled.div`
 
   @media (max-width: 768px) {
     text-align: center;
-    align-items: center;
+      align-items: flex-start;
   }
 `;
 
@@ -80,8 +81,10 @@ const Slogan = styled.div`
 `;
 
 const Poster = styled.div`
+   
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 2.5em;
+  font-style:bold;
   color: ${({ theme }) => theme.colors.whiteColor};
   margin-bottom: 20px;
 
@@ -177,3 +180,4 @@ const HelpText = styled.small`
   color: ${({ theme }) => theme.colors.whiteColor};
   margin-top: 10px;
 `;
+export default Landing;
