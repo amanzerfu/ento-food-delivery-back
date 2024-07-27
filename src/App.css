@@ -3,8 +3,11 @@
 }
 
 .App-logo {
+max-width: fit-content;
+border-radius: 3cm;
   height: 40vmin;
   pointer-events: none;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
 @media (prefers-reduced-motion: no-preference) {
