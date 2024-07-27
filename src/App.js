@@ -8,6 +8,7 @@ import Admin  from './components/pages/Admin';
 import Landing  from './components/pages/Landing';
 import { Footer } from './components/Footer';
 import FirstPage from './components/pages/FirstPage';
+import AboutUs from './components/pages/AboutUs';
 function App() {
   return (
     <Router>
@@ -15,9 +16,10 @@ function App() {
       <GlobalStyles />
       <NavBar />
       <Routes>
-        <Route path="/" element={<FirstPage />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/about" element={<AboutUs />} />
       </Routes>
       <Footer/>
     </ThemeProvider>

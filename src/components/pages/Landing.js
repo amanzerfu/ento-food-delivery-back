@@ -118,7 +118,7 @@ const Tel = styled.div`
 
 const OrderFoodForm = styled.div`
   position: fixed;
-  bottom: 20px;
+  bottom: 70px;
   right: 20px;
   width: 300px;
   padding: 20px;
