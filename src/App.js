@@ -7,8 +7,9 @@ import theme from './components/theme';
 import Admin  from './components/pages/Admin';
 import Landing  from './components/pages/Landing';
 import { Footer } from './components/Footer';
-import FirstPage from './components/pages/FirstPage';
 import AboutUs from './components/pages/AboutUs';
+import Shop from './components/pages/ShopList';
+import ShopList from './components/pages/ShopList';
 function App() {
   return (
     <Router>
@@ -17,7 +18,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/shop" element={<ShopList />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/about" element={<AboutUs />} />
       </Routes>

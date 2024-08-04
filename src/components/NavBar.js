@@ -25,7 +25,7 @@ export const NavBar = () => {
       <NavItems isopen={isMobileMenuOpen}>
         <MiddleItems>
           <NavItem href="/">Home</NavItem>
-          <NavItem href="/landing">shop now</NavItem>
+          <NavItem href="/shop">shop now</NavItem>
           <NavItem href="/admin">community</NavItem>
           <NavItem href="/contact">Contact</NavItem>
           <NavItem href="/about">About Us</NavItem>
