@@ -79,7 +79,7 @@ const ShopList = () => {
 
 const MainPage = styled.div`
   padding: 40px;
-  background-color: ${theme.colors.whiteColor};
+  background-color: ${theme.colors.background};
 `;
 
 const Title = styled.h1`
