@@ -4,7 +4,11 @@ import axios from 'axios';
 import theme from '../theme';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-
+import image1 from '../../assets/images/ethiopian-food.jpg';
+import image2 from '../../assets/images/ethiopian-chechebsa-XL.jpg';
+import image3 from '../../assets/images/awaze-XL.jpg';
+import Food from '../../TestApiJson/FoodList';
+import truncateText from '../TextHelper';
 const ShopList = () => {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,13 +16,22 @@ const ShopList = () => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:4000/api/shop-items?page=${currentPage}&limit=6`)
-      .then(response => {
-        setItems(response.data.items);
-        setTotalPages(response.data.totalPages);
-      })
-      .catch(error => console.error('Error fetching data:', error));
-
+    // axios.get(`http://127.0.0.1:4000/api/shop-items?page=${currentPage}&limit=6`)
+    //   .then(response => {
+    //     setItems(response.data.items);
+    //     setTotalPages(response.data.totalPages);
+    //   })
+    //   .catch(error => console.error('Error fetching data:', error));
+    const fetchData = () => {
+      const response = Food.items;
+      const startIdx = (currentPage - 1) * 6;
+      const endIdx = startIdx + 6;
+      const paginatedItems = response.slice(startIdx, endIdx);
+      setItems(paginatedItems);
+      setTotalPages(Math.ceil(response.length / 6));
+      setItem(paginatedItems[0] || null);
+    };
+    fetchData();
     axios.get(`http://127.0.0.1:4000/api/shop-items/${13}`)
       .then(response => {
         setItem(response.data.items[0]);
@@ -36,31 +49,35 @@ const ShopList = () => {
       <AdBanner>
         <Carousel autoPlay infiniteLoop showThumbs={false}>
           <div>
-            <ItemImage src={item?.imageurl} alt={item?.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} />
+            <ItemImage src={image1} alt={item?.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} />
             <p className="legend">Check out our new collection!</p>
           </div>
           <div>
-            <img src={item?.imageurl} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} alt="Second Choice today" />
+            <img src={image2} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} alt="Second Choice today" />
             <p className="legend">Exclusive deals on the latest items!</p>
           </div>
           <div>
-            <img src="https://via.placeholder.com/800x300" alt="Third Choice today" />
+            <img src={image3} alt="Third Choice today" />
             <p className="legend">Limited time offers, don't miss out!</p>
           </div>
         </Carousel>
       </AdBanner>
       <ItemList>
-        {items.map(item => (
-          <Item key={item.id}>
-            <FavoriteButton>❤️</FavoriteButton>
-            <ItemImage src={item.imageurl} alt={item.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item.imageurl}`); }} />
-            <ItemDetails>
-              <ItemName>{item.name}</ItemName>
-              <ItemDescription>{item.description}</ItemDescription>
-              <AddToCartButton>Add to Cart</AddToCartButton>
-            </ItemDetails>
-          </Item>
-        ))}
+        {items && items.length > 0 ? (
+          items.map(item => (
+            <Item key={item.id}>
+              <FavoriteButton>❤️</FavoriteButton>
+              <ItemImage src={item.imageurl} alt={item.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item.imageurl}`); }} />
+              <ItemDetails>
+                <ItemName>{item.name}</ItemName>
+                <ItemDescription>{truncateText(item.description, 10)}</ItemDescription>
+                <AddToCartButton>Add to Cart</AddToCartButton>
+              </ItemDetails>
+            </Item>
+          ))
+        ) : (
+          <p>No items listed.</p>
+        )}
       </ItemList>
       <Pagination>
         {Array.from({ length: totalPages }).map((_, index) => (
@@ -178,7 +195,7 @@ const AddToCartButton = styled.button`
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const PageNumber = styled.button`

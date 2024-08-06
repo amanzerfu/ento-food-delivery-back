@@ -18,7 +18,7 @@ export const Footer = () => {
 const FooterContainer = styled.footer`
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.whiteColor};
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   position: fixed;
   bottom: 0;
