@@ -10,6 +10,7 @@ import { Footer } from './components/Footer';
 import AboutUs from './components/pages/AboutUs';
 import Shop from './components/pages/ShopList';
 import ShopList from './components/pages/ShopList';
+import Contact from './components/pages/Contact';
 function App() {
   return (
     <Router>
@@ -17,10 +18,11 @@ function App() {
       <GlobalStyles />
       <NavBar />
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/shop" element={<ShopList />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/" element={<ShopList />} />
+        <Route path="/landing" element={<Landing />} />
+        {/* <Route path="/admin" element={<Admin />} /> */}
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer/>
     </ThemeProvider>
