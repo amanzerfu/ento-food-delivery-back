@@ -9,6 +9,7 @@ import image2 from '../../assets/images/ethiopian-chechebsa-XL.jpg';
 import image3 from '../../assets/images/awaze-XL.jpg';
 import Food from '../../TestApiJson/FoodList';
 import truncateText from '../TextHelper';
+
 const ShopList = () => {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,12 +17,7 @@ const ShopList = () => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    // axios.get(`http://127.0.0.1:4000/api/shop-items?page=${currentPage}&limit=6`)
-    //   .then(response => {
-    //     setItems(response.data.items);
-    //     setTotalPages(response.data.totalPages);
-    //   })
-    //   .catch(error => console.error('Error fetching data:', error));
+    // Simulated data fetching
     const fetchData = () => {
       const response = Food.items;
       const startIdx = (currentPage - 1) * 6;
@@ -32,6 +28,8 @@ const ShopList = () => {
       setItem(paginatedItems[0] || null);
     };
     fetchData();
+
+    // Additional fetching for a specific item
     axios.get(`http://127.0.0.1:4000/api/shop-items/${13}`)
       .then(response => {
         setItem(response.data.items[0]);
@@ -76,7 +74,7 @@ const ShopList = () => {
             </Item>
           ))
         ) : (
-          <p>No items listed.</p>
+          <NoItemsMessage>No items listed.</NoItemsMessage>
         )}
       </ItemList>
       <Pagination>
@@ -94,24 +92,29 @@ const ShopList = () => {
   );
 };
 
+// Styled Components
 const MainPage = styled.div`
-  padding: 40px;
+  padding: 20px;
   background-color: ${theme.colors.background};
+  min-height: 100vh;
 `;
 
 const Title = styled.h1`
   text-align: center;
-  color: ${theme.colors.background};
+  color: ${theme.colors.primary};
   margin-bottom: 20px;
+  font-size: 2.5em;
 `;
 
 const AdBanner = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+
   .carousel .slide img {
     width: 100%;
     height: 300px;
     object-fit: cover;
   }
+
   .carousel .legend {
     background: rgba(0, 0, 0, 0.5);
     color: ${theme.colors.whiteColor};
@@ -128,15 +131,16 @@ const ItemList = styled.div`
 const Item = styled.div`
   position: relative;
   background-color: ${theme.colors.whiteColor};
-  border: 1px solid ${theme.colors.background};
+  border: 1px solid ${theme.colors.primary};
   border-radius: 10px;
   overflow: hidden;
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -148,67 +152,76 @@ const FavoriteButton = styled.button`
   border: none;
   font-size: 1.5em;
   cursor: pointer;
-  color: ${theme.colors.neonMahneta};
+  color: ${theme.colors.primary};
+
+  &:hover {
+    color: ${theme.colors.secondary};
+  }
 `;
 
 const ItemImage = styled.img`
   width: 100%;
   height: 200px;
   object-fit: cover;
-  background-color: white;
+  background-color: ${theme.colors.lightGrey};
 `;
 
 const ItemDetails = styled.div`
   padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 `;
 
 const ItemName = styled.h2`
   font-size: 1.5em;
-  color: ${theme.colors.neonMahneta};
+  color: ${theme.colors.primary};
   margin: 10px 0;
 `;
 
 const ItemDescription = styled.p`
   font-size: 1em;
-  color: ${theme.colors.background};
+  color: ${theme.colors.darkGrey};
   margin: 10px 0;
-  text-align: center;
 `;
 
 const AddToCartButton = styled.button`
-  background-color: ${theme.colors.background};
+  background-color: ${theme.colors.primary};
   color: ${theme.colors.whiteColor};
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
+  transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${theme.colors.neonMahneta};
+    background-color: ${theme.colors.secondary};
   }
+`;
+
+const NoItemsMessage = styled.p`
+  font-size: 1.2em;
+  color: ${theme.colors.darkGrey};
 `;
 
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 20px;
 `;
 
 const PageNumber = styled.button`
   border: none;
-  background-color: ${({ active }) => (active ? theme.colors.background : theme.colors.whiteColor)};
-  color: ${({ active }) => (active ? theme.colors.whiteColor : theme.colors.background)};
+  background-color: ${({ active }) => (active ? theme.colors.primary : theme.colors.whiteColor)};
+  color: ${({ active }) => (active ? theme.colors.whiteColor : theme.colors.primary)};
   padding: 10px 15px;
   margin: 0 5px;
   cursor: pointer;
   border-radius: 5px;
+  transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${({ active }) => (active ? theme.colors.background : theme.colors.neonMahneta)};
+    background-color: ${({ active }) => (active ? theme.colors.primary : theme.colors.secondary)};
+    color: ${theme.colors.whiteColor};
   }
 `;
 
