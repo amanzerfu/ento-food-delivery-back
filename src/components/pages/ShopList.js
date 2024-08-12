@@ -64,12 +64,12 @@ const ShopList = () => {
         {items && items.length > 0 ? (
           items.map(item => (
             <Item key={item.id}>
-              <FavoriteButton>❤️</FavoriteButton>
+              <FavoriteButton>🤍</FavoriteButton>
               <ItemImage src={item.imageurl} alt={item.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item.imageurl}`); }} />
               <ItemDetails>
                 <ItemName>{item.name}</ItemName>
                 <ItemDescription>{truncateText(item.description, 10)}</ItemDescription>
-                <AddToCartButton>Add to Cart</AddToCartButton>
+                <AddToCartButton>🛒Add to Cart</AddToCartButton>
               </ItemDetails>
             </Item>
           ))
