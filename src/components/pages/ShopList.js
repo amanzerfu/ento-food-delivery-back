@@ -107,25 +107,88 @@ const Title = styled.h1`
 `;
 
 const AdBanner = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 
   .carousel .slide img {
     width: 100%;
-    height: 300px;
+    height: 350px; /* Increased height for more impact */
     object-fit: cover;
+    transition: transform 0.5s ease-in-out; /* Smooth zoom effect */
+
+    &:hover {
+      transform: scale(1.05); /* Slight zoom on hover for engagement */
+    }
   }
 
   .carousel .legend {
-    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
     color: ${theme.colors.whiteColor};
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .carousel .control-arrow {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  }
+
+  .carousel .control-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.5);
   }
 `;
-
 const ItemList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between; /* Aligns items with space between them */
+  gap: 25px;
+  padding: 20px 0;
+  background-color: ${theme.colors.lightBackground}; /* Light background for contrast */
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center; /* Center items on smaller screens */
+  }
+
+  .item-card {
+    background: ${theme.colors.whiteColor};
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: calc(33.333% - 20px); /* Three items per row with gap */
+    padding: 15px;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    img {
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    h2, p {
+      margin: 10px 0;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .item-card {
+      width: calc(50% - 20px); /* Two items per row on medium screens */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .item-card {
+      width: 100%; /* Full width on smaller screens */
+    }
+  }
 `;
 
 const Item = styled.div`
