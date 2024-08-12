@@ -18,7 +18,7 @@ export const Footer = () => {
 const FooterContainer = styled.footer`
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.whiteColor};
-  padding: 15px;
+  padding: 7px;
   text-align: center;
   position: fixed;
   bottom: 0;
@@ -32,6 +32,6 @@ const FooterContent = styled.div`
 
 const CopyrightText = styled.p`
   margin: 0;
-  font-size: 0.9em;
+  font-size: 0.5em;
   color: ${({ theme }) => theme.colors.whiteColor};
 `;
