@@ -184,7 +184,7 @@ const ItemDescription = styled.p`
 `;
 
 const AddToCartButton = styled.button`
-  background-color: ${theme.colors.primary};
+  background-color: ${theme.colors.neonMahneta};
   color: ${theme.colors.whiteColor};
   border: none;
   padding: 10px 20px;
