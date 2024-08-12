@@ -207,7 +207,6 @@ const Pagination = styled.div`
   justify-content: center;
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #000; /* Assuming a black background */
   border-radius: 8px;
 
   /* Shadow for a professional look */
