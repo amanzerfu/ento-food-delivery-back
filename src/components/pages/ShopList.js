@@ -218,7 +218,7 @@ const Pagination = styled.div`
     margin: 0 5px;
     padding: 8px 16px;
     color: #fff;
-    background-color: transparent;
+    background-color: ${({ active }) => (active ? theme.colors.neonMahneta : theme.colors.transparent)};
     border: 1px solid #444;
     border-radius: 4px;
     cursor: pointer;
