@@ -211,8 +211,8 @@ const Pagination = styled.div`
 
 const PageNumber = styled.button`
   border: none;
-  background-color: ${({ active }) => (active ? theme.colors.primary : theme.colors.whiteColor)};
-  color: ${({ active }) => (active ? theme.colors.whiteColor : theme.colors.primary)};
+  background-color: ${({ active }) => (active ? theme.colors.background : theme.colors.whiteColor)};
+  color: ${({ active }) => (active ? theme.colors.whiteColor : theme.colors.neonMahneta)};
   padding: 10px 15px;
   margin: 0 5px;
   cursor: pointer;
@@ -220,8 +220,8 @@ const PageNumber = styled.button`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${({ active }) => (active ? theme.colors.background : theme.colors.whiteColr)};
-    color: ${theme.colors.whiteColor};
+    background-color: ${({ active }) => (active ? theme.colors.background : theme.colors.whiteColor)};
+    color: ${({ active }) => (active ? theme.colors.whiteColor : theme.colors.neonMahneta)};
   }
 `;
 
