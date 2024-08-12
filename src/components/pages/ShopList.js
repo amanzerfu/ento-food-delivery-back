@@ -172,16 +172,29 @@ const ItemDetails = styled.div`
 `;
 
 const ItemName = styled.h2`
-  font-size: 1.5em;
+  font-size: 1.75em; /* Slightly larger for emphasis */
   color: ${theme.colors.primary};
-  margin: 10px 0;
+  margin: 12px 0;
+  font-weight: 600; /* Bolder for a strong impact */
+  letter-spacing: 0.5px; /* Slight spacing for readability */
+  text-transform: capitalize; /* Ensures consistent styling for brand */
+  
+  /* Additional professional touch */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 `;
 
 const ItemDescription = styled.p`
-  font-size: 1em;
+  font-size: 1.125em; /* Slightly larger for readability */
   color: ${theme.colors.darkGrey};
-  margin: 10px 0;
+  margin: 12px 0;
+  line-height: 1.6; /* Enhances readability by increasing line height */
+  font-weight: 400; /* Regular weight for smooth reading */
+  
+  /* Additional professional touch */
+  letter-spacing: 0.3px;
+  text-align: justify; /* Professional alignment for block text */
 `;
+
 
 const AddToCartButton = styled.button`
   background-color: ${theme.colors.neonMahneta};
