@@ -152,10 +152,10 @@ const FavoriteButton = styled.button`
   border: none;
   font-size: 1.5em;
   cursor: pointer;
-  color: ${theme.colors.primary};
+  color: ${theme.colors.background};
 
   &:hover {
-    color: ${theme.colors.secondary};
+    color: ${theme.colors.neonMahneta};
   }
 `;
 
@@ -194,7 +194,7 @@ const AddToCartButton = styled.button`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${theme.colors.secondary};
+    background-color: ${theme.colors.background};
   }
 `;
 
