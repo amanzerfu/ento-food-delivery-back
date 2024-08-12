@@ -220,7 +220,7 @@ const PageNumber = styled.button`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${({ active }) => (active ? theme.colors.primary : theme.colors.secondary)};
+    background-color: ${({ active }) => (active ? theme.colors.background : theme.colors.whiteColr)};
     color: ${theme.colors.whiteColor};
   }
 `;
