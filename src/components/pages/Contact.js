@@ -105,6 +105,7 @@ const Title = styled.h1`
   color: ${theme.colors.yelloColor};
   margin-bottom: 30px;
   font-size: 2.5em;
+  margin-top:15px;
 `;
 
 const ContactSection = styled.div`
@@ -183,6 +184,7 @@ const SubmitButton = styled.button`
 `;
 
 const FAQSection = styled.div`
+  color: ${theme.colors.whiteColor};
   max-width: 800px;
   margin: 0 auto;
 `;
@@ -197,8 +199,8 @@ const Question = styled.h3`
 `;
 
 const Answer = styled.p`
-  color: ${theme.colors.whiteColor};
+  color: ${theme.colors.primaryTwo};
+  margin-left:15px;
   font-size: 1.1em;
 `;
-
 export default Contact;
