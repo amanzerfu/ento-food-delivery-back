@@ -7,7 +7,7 @@ const Contact = () => {
   const [faq, setFaq] = useState([
     {
       question: 'How can I contact support?',
-      answer: 'You can contact support via the form below or email us at support@entofooddelivery.com.'
+      answer: 'You can contact support via the form above or email us at support@entofooddelivery.com.'
     },
     {
       question: 'What are your business hours?',
