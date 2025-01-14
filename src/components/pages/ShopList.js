@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import theme from '../theme';
@@ -8,7 +8,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import image1 from '../../assets/images/ethiopian-food.jpg';
 import image2 from '../../assets/images/ethiopian-chechebsa-XL.jpg';
 import image3 from '../../assets/images/awaze-XL.jpg';
-import truncateText from '../TextHelper';
 
 const ShopList = () => {
     const [items, setItems] = useState([]);
@@ -16,27 +15,27 @@ const ShopList = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [item, setItem] = useState(null);
 
-    useEffect(() => {
-        const fetchData = () => {
-            const response = Food.items;
-            const startIdx = (currentPage - 1) * 6;
-            const endIdx = startIdx + 6;
-            const paginatedItems = response.slice(startIdx, endIdx);
-            setItems(paginatedItems);
-            setTotalPages(Math.ceil(response.length / 6));
-        };
-        fetchData();
-
-          // Additional fetching for a specific item
-    axios.get(`http://127.0.0.1:4000/api/shop-items/${13}`)
-    .then(response => {
-      setItem(response.data.items[0]);
-    })
-    .catch(error => console.error('Error fetching data:', error));
-     
+    // Memoize the paginated items calculation
+    const paginatedItems = useMemo(() => {
+        const startIdx = (currentPage - 1) * 6;
+        const endIdx = startIdx + 6;
+        return Food.items.slice(startIdx, endIdx);
     }, [currentPage]);
 
-    const handlePageChange = (newPage) => setCurrentPage(newPage);
+    useEffect(() => {
+        setItems(paginatedItems);
+        setTotalPages(Math.ceil(Food.items.length / 6));
+
+        // Fetch specific item data
+        axios.get(`http://127.0.0.1:4000/api/shop-items/${13}`)
+        .then(response => {
+            setItem(response.data.items[0]);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }, [paginatedItems]);
+
+    // Memoize the page change handler to avoid unnecessary re-renders
+    const handlePageChange = useCallback((newPage) => setCurrentPage(newPage), []);
 
     return (
         <MainContainer>
@@ -45,21 +44,21 @@ const ShopList = () => {
                 <SubTitle>Unlock rewards as you shop and discover premium products!</SubTitle>
             </Header>
             <AdBanner>
-        <Carousel autoPlay infiniteLoop showThumbs={false}>
-          <div>
-            <ItemImage src={image1} alt={item?.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} />
-            <p className="legend">Check out our new collection!</p>
-          </div>
-          <div>
-            <img src={image2} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} alt="Second Choice today" />
-            <p className="legend">Exclusive deals on the latest items!</p>
-          </div>
-          <div>
-            <img src={image3} alt="Third Choice today" />
-            <p className="legend">Limited time offers, don't miss out!</p>
-          </div>
-        </Carousel>
-      </AdBanner>
+                <Carousel autoPlay infiniteLoop showThumbs={false}>
+                    <div>
+                        <ItemImage src={image1} alt={item?.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} />
+                        <p className="legend">Check out our new collection!</p>
+                    </div>
+                    <div>
+                        <img src={image2} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} alt="Second Choice today" />
+                        <p className="legend">Exclusive deals on the latest items!</p>
+                    </div>
+                    <div>
+                        <img src={image3} alt="Third Choice today" />
+                        <p className="legend">Limited time offers, don't miss out!</p>
+                    </div>
+                </Carousel>
+            </AdBanner>
             <ItemGrid>
                 {items.map(item => (
                     <Card key={item.id}>
