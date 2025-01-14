@@ -7,15 +7,15 @@ const Contact = () => {
   const [faq, setFaq] = useState([
     {
       question: 'How can I contact support?',
-      answer: 'You can contact support via the form below or email us at support@example.com.'
+      answer: 'You can contact support via the form below or email us at support@entofooddelivery.com.'
     },
     {
       question: 'What are your business hours?',
-      answer: 'We are available from 9 AM to 5 PM, Monday through Friday.'
+      answer: 'We are available from 9 AM to 5 PM, Monday through Saturdays.'
     },
     {
       question: 'Where are you located?',
-      answer: 'Our office is located at 123 Main Street, Anytown, USA.'
+      answer: 'Our office is located at Wollo sefer Bole, Addis Ababa.'
     },
     // Add more FAQ items as needed
   ]);
@@ -39,9 +39,9 @@ const Contact = () => {
           <h2>Get in Touch</h2>
           <p>If you have any questions or need further information, feel free to contact us using the form below or reach us directly.</p>
           <ContactInfo>
-            <p><strong>Email:</strong> support@example.com</p>
-            <p><strong>Phone:</strong> +1 (555) 123-4567</p>
-            <p><strong>Address:</strong> 123 Main Street, Anytown, USA</p>
+            <p><strong>Email:</strong> support@entofooddelivery.com</p>
+            <p><strong>Phone:</strong> +251 (940) 22-3403</p>
+            <p><strong>Address:</strong> Wollo sefer Bole, Addis Ababa.</p>
           </ContactInfo>
         </ContactDetails>
         <ContactForm onSubmit={handleSubmit}>

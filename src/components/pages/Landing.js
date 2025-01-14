@@ -27,7 +27,7 @@ const Landing = () => {
           </PhonePart>
         </BrandingItems>
         <OrderFoodForm>
-          <FormTitle>Order Here</FormTitle>
+          <FormTitle>Register Here</FormTitle>
           <InputField type="text" name="fullname" placeholder="Full Name" />
           <InputField type="text" name="phone" placeholder="Phone Number" />
           <InputField type="text" name="location" placeholder="Physical Location" />

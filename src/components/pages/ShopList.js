@@ -2,49 +2,49 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import theme from '../theme';
+import Food from '../../TestApiJson/FoodList';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import image1 from '../../assets/images/ethiopian-food.jpg';
 import image2 from '../../assets/images/ethiopian-chechebsa-XL.jpg';
 import image3 from '../../assets/images/awaze-XL.jpg';
-import Food from '../../TestApiJson/FoodList';
 import truncateText from '../TextHelper';
 
 const ShopList = () => {
-  const [items, setItems] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [item, setItem] = useState(null);
+    const [items, setItems] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [item, setItem] = useState(null);
 
-  useEffect(() => {
-    // Simulated data fetching
-    const fetchData = () => {
-      const response = Food.items;
-      const startIdx = (currentPage - 1) * 6;
-      const endIdx = startIdx + 6;
-      const paginatedItems = response.slice(startIdx, endIdx);
-      setItems(paginatedItems);
-      setTotalPages(Math.ceil(response.length / 6));
-      setItem(paginatedItems[0] || null);
-    };
-    fetchData();
+    useEffect(() => {
+        const fetchData = () => {
+            const response = Food.items;
+            const startIdx = (currentPage - 1) * 6;
+            const endIdx = startIdx + 6;
+            const paginatedItems = response.slice(startIdx, endIdx);
+            setItems(paginatedItems);
+            setTotalPages(Math.ceil(response.length / 6));
+        };
+        fetchData();
 
-    // Additional fetching for a specific item
+          // Additional fetching for a specific item
     axios.get(`http://127.0.0.1:4000/api/shop-items/${13}`)
-      .then(response => {
-        setItem(response.data.items[0]);
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }, [currentPage]);
+    .then(response => {
+      setItem(response.data.items[0]);
+    })
+    .catch(error => console.error('Error fetching data:', error));
+     
+    }, [currentPage]);
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
+    const handlePageChange = (newPage) => setCurrentPage(newPage);
 
-  return (
-    <MainPage>
-      <Title>Shop Items</Title>
-      <AdBanner>
+    return (
+        <MainContainer>
+            <Header>
+                <Title>Shop Our Exclusive Items</Title>
+                <SubTitle>Unlock rewards as you shop and discover premium products!</SubTitle>
+            </Header>
+            <AdBanner>
         <Carousel autoPlay infiniteLoop showThumbs={false}>
           <div>
             <ItemImage src={image1} alt={item?.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; console.error(`Image not found: ${item?.imageurl}`); }} />
@@ -60,50 +60,176 @@ const ShopList = () => {
           </div>
         </Carousel>
       </AdBanner>
-      <ItemList>
-        {items && items.length > 0 ? (
-          items.map(item => (
-            <Item key={item.id}>
-              <FavoriteButton>🤍</FavoriteButton>
-              <ItemImage src={item.imageurl} alt={item.name} onError={(e) => { e.target.src = "https://via.placeholder.com/300"; }} />
-              <ItemDetails>
-                <ItemName>{item.name}</ItemName>
-                <ItemDescription>{truncateText(item.description, 10)}</ItemDescription>
-                <AddToCartButton>🛒Add to Cart</AddToCartButton>
-              </ItemDetails>
-            </Item>
-          ))
-        ) : (
-          <NoItemsMessage>No items listed.</NoItemsMessage>
-        )}
-      </ItemList>
-      <Pagination>
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <PageNumber
-            key={index}
-            active={index + 1 === currentPage}
-            onClick={() => handlePageChange(index + 1)}
-          >
-            {index + 1}
-          </PageNumber>
-        ))}
-      </Pagination>
-    </MainPage>
-  );
+            <ItemGrid>
+                {items.map(item => (
+                    <Card key={item.id}>
+                        <ImageWrapper>
+                            <ItemImage src={item.imageurl} alt={item.name} />
+                            <Badge>🔥 Trending</Badge>
+                        </ImageWrapper>
+                        <CardContent>
+                            <ItemName>{item.name}</ItemName>
+                            <Description>{item.description.slice(0, 50)}...</Description>
+                            <Price>${item.price}</Price>
+                            <ActionButtons>
+                                <FavoriteButton>🤍</FavoriteButton>
+                                <AddToCartButton>🛒 Add to Cart</AddToCartButton>
+                            </ActionButtons>
+                        </CardContent>
+                    </Card>
+                ))}
+            </ItemGrid>
+            <Pagination>
+                {Array.from({ length: totalPages }).map((_, index) => (
+                    <PageNumber
+                        key={index}
+                        active={index + 1 === currentPage}
+                        onClick={() => handlePageChange(index + 1)}
+                    >
+                        {index + 1}
+                    </PageNumber>
+                ))}
+            </Pagination>
+        </MainContainer>
+    );
 };
 
 // Styled Components
-const MainPage = styled.div`
-  padding: 20px;
-  background-color: ${theme.colors.background};
-  min-height: 100vh;
+const MainContainer = styled.div`
+    background-color: ${theme.colors.background};
+    padding: 20px;
+    min-height: 100vh;
+    color: ${theme.colors.whiteColor};
+`;
+
+const Header = styled.div`
+    text-align: center;
+    margin-bottom: 30px;
 `;
 
 const Title = styled.h1`
-  text-align: center;
-  color: ${theme.colors.primary};
-  margin-bottom: 20px;
-  font-size: 2.5em;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: ${theme.colors.primaryOne};
+`;
+
+const SubTitle = styled.p`
+    font-size: 1.2rem;
+    color: ${theme.colors.yelloColor};
+`;
+
+const ItemGrid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+`;
+
+const Card = styled.div`
+    background: ${theme.colors.transparent};
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+    transition: transform 0.2s;
+    &:hover {
+        transform: scale(1.05);
+    }
+`;
+
+const ImageWrapper = styled.div`
+    position: relative;
+`;
+
+const ItemImage = styled.img`
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+`;
+
+const Badge = styled.div`
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: ${theme.colors.neonMahneta};
+    color: ${theme.colors.whiteColor};
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    font-weight: bold;
+`;
+
+const CardContent = styled.div`
+    padding: 15px;
+`;
+
+const ItemName = styled.h2`
+    font-size: 1.5rem;
+    margin: 0 0 10px;
+    color: ${theme.colors.primaryTwo};
+`;
+
+const Description = styled.p`
+    font-size: 0.9rem;
+    color: ${theme.colors.whiteColor};
+    margin-bottom: 10px;
+`;
+
+const Price = styled.p`
+    font-size: 1.2rem;
+    color: ${theme.colors.neonMahneta};
+    font-weight: bold;
+    margin-bottom: 15px;
+`;
+
+const ActionButtons = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const FavoriteButton = styled.button`
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: ${theme.colors.primaryOne};
+    cursor: pointer;
+    &:hover {
+        color: ${theme.colors.neonMahneta};
+    }
+`;
+
+const AddToCartButton = styled.button`
+    background: ${theme.colors.primaryTwo};
+    color: ${theme.colors.whiteColor};
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+        background: ${theme.colors.neonMahneta};
+        color: ${theme.colors.black};
+    }
+`;
+
+const Pagination = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+`;
+
+const PageNumber = styled.button`
+    background: ${(props) => (props.active ? theme.colors.primaryOne : theme.colors.transparent)};
+    color: ${theme.colors.whiteColor};
+    border: none;
+    padding: 10px;
+    margin: 0 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+        background: ${theme.colors.primaryTwo};
+    }
 `;
 
 const AdBanner = styled.div`
@@ -140,192 +266,6 @@ const AdBanner = styled.div`
 
   .carousel .control-arrow:hover {
     background-color: rgba(0, 0, 0, 0.5);
-  }
-`;
-const ItemList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; /* Aligns items with space between them */
-  gap: 25px;
-  padding: 20px 0;
-  background-color: ${theme.colors.lightBackground}; /* Light background for contrast */
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center; /* Center items on smaller screens */
-  }
-
-  .item-card {
-    background: ${theme.colors.whiteColor};
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    width: calc(33.333% - 20px); /* Three items per row with gap */
-    padding: 15px;
-
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    img {
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-
-    h2, p {
-      margin: 10px 0;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .item-card {
-      width: calc(50% - 20px); /* Two items per row on medium screens */
-    }
-  }
-
-  @media (max-width: 768px) {
-    .item-card {
-      width: 100%; /* Full width on smaller screens */
-    }
-  }
-`;
-
-const Item = styled.div`
-  position: relative;
-  background-color: ${theme.colors.whiteColor};
-  border: 1px solid ${theme.colors.primary};
-  border-radius: 10px;
-  overflow: hidden;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  }
-`;
-
-const FavoriteButton = styled.button`
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
-  color: ${theme.colors.background};
-
-  &:hover {
-    color: ${theme.colors.neonMahneta};
-  }
-`;
-
-const ItemImage = styled.img`
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  background-color: ${theme.colors.lightGrey};
-`;
-
-const ItemDetails = styled.div`
-  padding: 15px;
-  text-align: center;
-`;
-
-const ItemName = styled.h2`
-  font-size: 1.75em; /* Slightly larger for emphasis */
-  color: ${theme.colors.primary};
-  margin: 12px 0;
-  font-weight: 600; /* Bolder for a strong impact */
-  letter-spacing: 0.5px; /* Slight spacing for readability */
-  text-transform: capitalize; /* Ensures consistent styling for brand */
-  
-  /* Additional professional touch */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-`;
-
-const ItemDescription = styled.p`
-  font-size: 1.125em; /* Slightly larger for readability */
-  color: ${theme.colors.darkGrey};
-  margin: 12px 0;
-  line-height: 1.6; /* Enhances readability by increasing line height */
-  font-weight: 400; /* Regular weight for smooth reading */
-  
-  /* Additional professional touch */
-  letter-spacing: 0.3px;
-  text-align: justify; /* Professional alignment for block text */
-`;
-
-
-const AddToCartButton = styled.button`
-  background-color: ${theme.colors.neonMahneta};
-  color: ${theme.colors.whiteColor};
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-top: 10px;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: ${theme.colors.background};
-  }
-`;
-
-const NoItemsMessage = styled.p`
-  font-size: 1.2em;
-  color: ${theme.colors.darkGrey};
-`;
-const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  padding: 10px 20px;
-  border-radius: 8px;
-
-  /* Shadow for a professional look */
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6), 
-              0px 5px 10px rgba(255, 255, 255, 0.1);
-
-  /* Additional styling for pagination buttons */
-  & > button {
-    margin: 0 5px;
-    padding: 8px 16px;
-    color: #fff;
-    background-color: ${({ active }) => (active ? theme.colors.neonMahneta : theme.colors.transparent)};
-    border: 1px solid #444;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
-    }
-
-    &:active {
-      background-color: rgba(255, 255, 255, 0.2);
-      box-shadow: inset 0px 4px 8px rgba(255, 255, 255, 0.3);
-    }
-  }
-`;
-
-
-const PageNumber = styled.button`
-  border: none;
-  background-color: ${({ active }) => (active ? theme.colors.background : theme.colors.whiteColor)};
-  color: ${({ active }) => (active ? theme.colors.whiteColor : theme.colors.neonMahneta)};
-  padding: 10px 15px;
-  margin: 0 5px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: ${({ active }) => (active ? theme.colors.background : theme.colors.whiteColor)};
-    color: ${({ active }) => (active ? theme.colors.whiteColor : theme.colors.neonMahneta)};
   }
 `;
 
