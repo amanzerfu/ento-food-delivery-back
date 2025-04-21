@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Landing from './Landing';
 import Admin from './Admin';
+import Registration from './Registration';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -34,6 +35,7 @@ const FirstPage = () => {
       <GlobalStyle />
       <MainContainer pageIndex={pageIndex}>
         <Landing />
+       <Registration />
         <Admin />
         {/* Add more pages here if needed */}
       </MainContainer>
